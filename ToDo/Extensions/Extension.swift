@@ -12,7 +12,10 @@ import CoreData
 // MARK: - CoreData logic
 extension ToDoTableViewController {
     func loadCoreData(){
+        
         let request: NSFetchRequest<ToDo> = ToDo.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true)]
+
         
         do {
             let result = try managedObjectContext?.fetch(request)
@@ -22,6 +25,7 @@ extension ToDoTableViewController {
             fatalError("Error in loading item into core data")
         }
     }
+    
     
     func saveCoreData(){
         do {
@@ -88,15 +92,15 @@ extension ToDoTableViewController {
         saveCoreData()
     }
     
-    /*
+    
      // Override to support conditional editing of the table view.
      override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
      // Return false if you do not want the specified item to be editable.
      return true
      }
-     */
+     
     
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -105,20 +109,22 @@ extension ToDoTableViewController {
         }
         saveCoreData()
     }
-    */
     
+    
+   
      // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let movedItem = toDoLists.remove(at: sourceIndexPath.row)
-           toDoLists.insert(movedItem, at: destinationIndexPath.row)
-           
-           // Update the "order" attribute based on the new order
-           for (index, toDo) in toDoLists.enumerated() {
-               toDo.order = Int16(index)
-           }
-           
-           saveCoreData()
-       }
+     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+     let movedItem = toDoLists.remove(at: sourceIndexPath.row)
+     toDoLists.insert(movedItem, at: destinationIndexPath.row)
+     
+     // Update the "order" attribute based on the new order
+     for (index, toDo) in toDoLists.enumerated() {
+     toDo.order = Int16(index)
+     }
+     
+     saveCoreData()
+     }
+    
     
     /*
      // Override to support conditional rearranging of the table view.

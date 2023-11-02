@@ -23,10 +23,11 @@ class ToDoTableViewController: UITableViewController {
         
         
         // Uncomment the following line to preserve selection between presentations
+        
        self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     
@@ -64,7 +65,7 @@ class ToDoTableViewController: UITableViewController {
     }
     
     @IBAction func deleteAllItemsTapped(_ sender: Any) {
-        let deleteAllAlertController = UIAlertController(title: "Delete all?", message: "Are you sure you want to delete all items?", preferredStyle: .alert)
+        let deleteAllItems = UIAlertController(title: "Delete all?", message: "Are you sure you want to delete all items?", preferredStyle: .alert)
         
         let yesAction = UIAlertAction(title: "Yes", style: .destructive) { _ in
             self.deleteAllCoreData()
@@ -72,12 +73,12 @@ class ToDoTableViewController: UITableViewController {
         
         let noAction = UIAlertAction(title: "No", style: .default, handler: nil)
         
-        deleteAllAlertController.addAction(yesAction)
-        deleteAllAlertController.addAction(noAction)
+        deleteAllItems.addAction(yesAction)
+        deleteAllItems.addAction(noAction)
         
-        present(deleteAllAlertController, animated: true)
+        present(deleteAllItems, animated: true)
     }
-
+    
 }
 
 
